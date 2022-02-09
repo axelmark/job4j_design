@@ -15,7 +15,12 @@ public class BackwardArrayIt implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return data.length != 0;
+        for (int item : data) {
+            if (item != 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
