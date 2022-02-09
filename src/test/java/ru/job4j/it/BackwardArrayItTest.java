@@ -11,7 +11,6 @@ import org.junit.Test;
 public class BackwardArrayItTest {
 
     @Test
-
     public void whenReadSequenceAndHasNextThenFalse() {
         BackwardArrayIt it = new BackwardArrayIt(new int[]{1, 2, 3, 4});
         assertThat(it.next(), is(4));
