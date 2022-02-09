@@ -3,6 +3,7 @@ package ru.job4j.it;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 
 import java.util.NoSuchElementException;
 import org.junit.Test;
@@ -10,7 +11,18 @@ import org.junit.Test;
 public class BackwardArrayItTest {
 
     @Test
-    public void whenMultiCallhasNextThenTrue() {
+
+    public void whenReadSequenceAndHasNextThenFalse() {
+        BackwardArrayIt it = new BackwardArrayIt(new int[]{1, 2, 3, 4});
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(1));
+        assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void whenMultiCallHasNextThenTrue() {
         BackwardArrayIt it = new BackwardArrayIt(
             new int[]{1, 2, 3}
         );

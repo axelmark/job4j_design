@@ -6,21 +6,18 @@ import java.util.NoSuchElementException;
 public class BackwardArrayIt implements Iterator<Integer> {
 
     private final int[] data;
-    private int point;
+    private int point = 0;
 
     public BackwardArrayIt(int[] data) {
         this.data = data;
-        point = data.length - 1;
+        for (int i = 0; i < data.length; i++) {
+            point = i;
+        }
     }
 
     @Override
     public boolean hasNext() {
-        for (int item : data) {
-            if (item != 0) {
-                return true;
-            }
-        }
-        return false;
+        return point >= 0 && data.length != 0;
     }
 
     @Override
