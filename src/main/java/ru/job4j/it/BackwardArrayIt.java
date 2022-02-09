@@ -10,17 +10,17 @@ public class BackwardArrayIt implements Iterator<Integer> {
 
     public BackwardArrayIt(int[] data) {
         this.data = data;
-        point = (data.length - 1);
+        point = data.length - 1;
     }
 
     @Override
     public boolean hasNext() {
-        return point < data.length;
+        return data.length != 0;
     }
 
     @Override
     public Integer next() {
-        if (!hasNext() || data.length == 0) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return data[point--];
