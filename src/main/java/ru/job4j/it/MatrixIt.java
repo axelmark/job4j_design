@@ -37,6 +37,5 @@ public class MatrixIt implements Iterator<Integer> {
         int rsl = data[row.charAt(point) - '0'][column.charAt(point) - '0'];
         point++;
         return rsl;
-
     }
 }
