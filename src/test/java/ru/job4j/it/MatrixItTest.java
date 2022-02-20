@@ -1,6 +1,5 @@
 package ru.job4j.it;
 
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -8,15 +7,6 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 public class MatrixItTest {
-
-    @Test
-    public void when4El() {
-        int[][] in = {
-            {1}
-        };
-        MatrixIt it = new MatrixIt(in);
-        assertThat(it.next(), is(1));
-    }
 
     @Test
     public void whenFirstEmptyThenNext() {
