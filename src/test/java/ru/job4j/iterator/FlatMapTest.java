@@ -2,16 +2,16 @@ package ru.job4j.iterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class FlatMapTest {
+
     @Test
     public void whenDiffNext() {
         Iterator<Iterator<Integer>> data = List.of(
