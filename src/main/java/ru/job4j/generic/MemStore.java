@@ -27,8 +27,9 @@ public final class MemStore<T extends Base> implements Store<T> {
         if (storage.containsKey(id)) {
             storage.remove(id);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     @Override
