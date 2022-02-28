@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import ru.job4j.list.List;
 
 public class SimpleArrayList<T> implements List<T> {
@@ -19,7 +20,7 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public void add(T value) {
         if (size >= container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+            changeLength();
         }
         container[size++] = value;
         modCount++;
@@ -27,9 +28,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T newValue) {
-        if (index < 0 || index >= container.length) {
-            throw new IndexOutOfBoundsException();
-        }
+        Objects.checkIndex(index, container.length);
         T edited = container[index];
         container[index] = newValue;
         return edited;
@@ -37,6 +36,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
+        Objects.checkIndex(index, container.length);
         T removed = container[index];
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[container.length - 1] = null;
@@ -47,15 +47,17 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= container.length) {
-            throw new IndexOutOfBoundsException();
-        }
+        Objects.checkIndex(index, container.length);
         return container[index];
     }
 
     @Override
     public int size() {
         return this.size;
+    }
+
+    private void changeLength() {
+        container = Arrays.copyOf(container, container.length * 2);
     }
 
     @Override
@@ -66,14 +68,14 @@ public class SimpleArrayList<T> implements List<T> {
 
             @Override
             public boolean hasNext() {
-                return i < container.length && container[i] != null && size - i != 0;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return i < container.length && size - i != 0;
             }
 
             @Override
             public T next() {
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
-                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
