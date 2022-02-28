@@ -126,5 +126,4 @@ public class SimpleArrayListTest {
         list.add(0);
         iterator.next();
     }
-
 }
