@@ -32,7 +32,6 @@ public class SimpleArrayList<T> implements List<T> {
         T edited = container[index];
         container[index] = newValue;
         return edited;
-
     }
 
     @Override
