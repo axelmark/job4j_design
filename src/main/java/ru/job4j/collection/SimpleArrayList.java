@@ -5,6 +5,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+
 import ru.job4j.list.List;
 
 public class SimpleArrayList<T> implements List<T> {
@@ -28,15 +29,13 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, container.length);
-        T edited = container[index];
-        container[index] = newValue;
-        return edited;
+        Objects.checkIndex(index, size);
+        return container[index];
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         T removed = container[index];
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[container.length - 1] = null;
@@ -47,7 +46,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
@@ -57,7 +56,7 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     private void changeLength() {
-        container = Arrays.copyOf(container, container.length * 2);
+        container = Arrays.copyOf(container, size * 2);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class SimpleArrayList<T> implements List<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return i < container.length && size - i != 0;
+                return i < size;
             }
 
             @Override
