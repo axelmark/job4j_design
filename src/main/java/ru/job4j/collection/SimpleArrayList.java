@@ -5,7 +5,6 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-
 import ru.job4j.list.List;
 
 public class SimpleArrayList<T> implements List<T> {
@@ -30,7 +29,10 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public T set(int index, T newValue) {
         Objects.checkIndex(index, size);
-        return container[index];
+        T edited = container[index];
+        container[index] = newValue;
+        return edited;
+
     }
 
     @Override
