@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleLinkedList<E> implements List<E> {
+
     private Node<E> first;
     private Node<E> last;
     private int modCount;
@@ -13,8 +14,8 @@ public class SimpleLinkedList<E> implements List<E> {
 
     @Override
     public void add(E value) {
-        final Node<E> l = last;
-        final Node<E> newNode = new Node<>(l, value, null);
+        Node<E> l = last;
+        Node<E> newNode = new Node<>(l, value, null);
         last = newNode;
         if (l == null) {
             first = newNode;
@@ -36,11 +37,12 @@ public class SimpleLinkedList<E> implements List<E> {
     }
 
     private static class Node<E> {
-        E item;
-        SimpleLinkedList.Node<E> next;
-        SimpleLinkedList.Node<E> prev;
 
-        Node(SimpleLinkedList.Node<E> prev, E element, SimpleLinkedList.Node<E> next) {
+        E item;
+        Node<E> next;
+        Node<E> prev;
+
+        Node(Node<E> prev, E element, Node<E> next) {
             this.item = element;
             this.next = next;
             this.prev = prev;
@@ -49,7 +51,8 @@ public class SimpleLinkedList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
+        return new Iterator<>() {
+            Node<E> cur = first;
             private final int expectedModCount = modCount;
             public int i = 0;
 
@@ -58,7 +61,7 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return i < size;
+                return cur != null;
             }
 
             @Override
@@ -66,7 +69,9 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return get(i++);
+                var rsl = cur.item;
+                cur = cur.next;
+                return rsl;
             }
         };
     }
