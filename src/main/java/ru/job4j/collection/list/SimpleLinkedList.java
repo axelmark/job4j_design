@@ -29,7 +29,7 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        SimpleLinkedList.Node<E> cur = first;
+        Node<E> cur = first;
         for (int i = 0; i < index; i++) {
             cur = cur.next;
         }
