@@ -12,6 +12,10 @@ public class SimpleQueue<T> {
     public T poll() {
         T rsl;
         if (size != 0) {
+            if (sizeOut != 0) {
+                in.push(out.pop());
+                sizeOut--;
+            }
             for (int i = 0; i < size; i++) {
                 out.push(in.pop());
                 sizeOut++;
@@ -21,13 +25,6 @@ public class SimpleQueue<T> {
             size = 0;
         } else {
             throw new NoSuchElementException();
-        }
-        if (sizeOut != 0) {
-            for (int i = 0; i < sizeOut; i++) {
-                in.push(out.pop());
-                size++;
-            }
-            sizeOut = 0;
         }
         return rsl;
     }
