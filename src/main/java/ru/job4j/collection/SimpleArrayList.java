@@ -5,7 +5,6 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-
 import ru.job4j.list.List;
 
 public class SimpleArrayList<T> implements List<T> {
@@ -61,7 +60,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             private final int expectedModCount = modCount;
             public int i = 0;
 
