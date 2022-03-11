@@ -6,19 +6,21 @@ public class SimpleQueue<T> {
 
     private final SimpleStack<T> in = new SimpleStack<>();
     private final SimpleStack<T> out = new SimpleStack<>();
-    private int size;
+    private int inSize;
+    private int outSize;
 
     public T poll() {
-        T rsl;
-        if (size != 0) {
-            for (int i = 0; i < size; i++) {
-                out.push(in.pop());
+        T rsl = null;
+        if (inSize != 0) {
+            if (outSize == 0) {
+                while (inSize != 0) {
+                    out.push(in.pop());
+                    inSize--;
+                    outSize++;
+                }
             }
             rsl = out.pop();
-            size--;
-            for (int i = 0; i < size; i++) {
-                in.push(out.pop());
-            }
+            outSize--;
         } else {
             throw new NoSuchElementException();
         }
@@ -27,6 +29,6 @@ public class SimpleQueue<T> {
 
     public void push(T value) {
         in.push(value);
-        size++;
+        inSize++;
     }
 }
