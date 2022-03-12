@@ -11,19 +11,18 @@ public class SimpleQueue<T> {
 
     public T poll() {
         T rsl = null;
-        if (inSize != 0) {
-            if (outSize == 0) {
-                while (inSize != 0) {
-                    out.push(in.pop());
-                    inSize--;
-                    outSize++;
-                }
-            }
-            rsl = out.pop();
-            outSize--;
-        } else {
+        if (inSize == 0) {
             throw new NoSuchElementException();
         }
+        if (outSize == 0) {
+            while (inSize != 0) {
+                out.push(in.pop());
+                inSize--;
+                outSize++;
+            }
+        }
+        rsl = out.pop();
+        outSize--;
         return rsl;
     }
 
