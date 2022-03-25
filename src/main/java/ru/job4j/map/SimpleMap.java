@@ -16,26 +16,32 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        boolean rsl = false;
-        if (count < capacity) {
-            table[expand(key)] = new MapEntry<>(key, value);
-            modCount++;
-            count++;
-            rsl = true;
+        if (count == capacity) {
+            expand();
         }
-        return rsl;
+
+        int hashKey = hash(key);
+        int index = indexFor(hashKey);
+        table[index] = new MapEntry<>(key, value);
+        modCount++;
+        count++;
+        return true;
     }
 
     @Override
     public V get(K key) {
-        return table[expand(key)].key != null ? table[expand(key)].value : null;
+        int hashKey = hash(key);
+        int index = indexFor(hashKey);
+        return table[index].key != null ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        if (table[expand(key)] != null) {
-            table[expand(key)] = null;
+        int hashKey = hash(key);
+        int index = indexFor(hashKey);
+        if (table[index] != null) {
+            table[index] = null;
             count--;
             rsl = true;
         }
@@ -50,9 +56,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return (table.length - 1) & hash;
     }
 
-    private int expand(K key) {
-        int hashKey = hash(key);
-        return indexFor(hashKey);
+    private void expand() {
+        capacity *= 2;
+        MapEntry<K, V>[] newTable = new MapEntry[capacity];
+        for (var item : table) {
+            if (item != null) {
+                int hashKey = hash(item.key);
+                int index = indexFor(hashKey);
+                newTable[index] = item;
+            }
+        }
+        table = newTable;
     }
 
     @Override
