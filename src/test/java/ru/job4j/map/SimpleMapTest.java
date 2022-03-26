@@ -26,5 +26,4 @@ public class SimpleMapTest {
         var rsl = simpleMap.remove(vasya);
         assertTrue(rsl);
     }
-
 }

@@ -40,7 +40,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         boolean rsl = false;
         int hashKey = hash(key);
         int index = indexFor(hashKey);
-        if (table[index] != null && table[index].equals(key)) {
+        if (table[index] != null && table[index].key.equals(key)) {
             table[index] = null;
             count--;
             rsl = true;
