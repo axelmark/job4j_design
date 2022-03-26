@@ -11,28 +11,28 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private int count = 0;
     private int modCount = 0;
     public int i = 0;
-
+    public int threshold = (int) (capacity * LOAD_FACTOR);
     private MapEntry<K, V>[] table = new MapEntry[capacity];
 
     @Override
     public boolean put(K key, V value) {
-        if (count == capacity) {
-            expand();
+        boolean rsl = false;
+        if (count != threshold) {
+            int hashKey = hash(key);
+            int index = indexFor(hashKey);
+            table[index] = new MapEntry<>(key, value);
+            modCount++;
+            count++;
+            rsl = true;
         }
-
-        int hashKey = hash(key);
-        int index = indexFor(hashKey);
-        table[index] = new MapEntry<>(key, value);
-        modCount++;
-        count++;
-        return true;
+        return rsl;
     }
 
     @Override
     public V get(K key) {
         int hashKey = hash(key);
         int index = indexFor(hashKey);
-        return table[index].key != null ? table[index].value : null;
+        return table[index].key.equals(key) ? table[index].value : null;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         boolean rsl = false;
         int hashKey = hash(key);
         int index = indexFor(hashKey);
-        if (table[index] != null) {
+        if (table[index] != null && table[index].equals(key)) {
             table[index] = null;
             count--;
             rsl = true;
@@ -58,6 +58,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private void expand() {
         capacity *= 2;
+        threshold = (int) (capacity * LOAD_FACTOR);
         MapEntry<K, V>[] newTable = new MapEntry[capacity];
         for (var item : table) {
             if (item != null) {
