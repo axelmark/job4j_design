@@ -11,7 +11,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private int count = 0;
     private int modCount = 0;
     private int threshold = (int) (capacity * LOAD_FACTOR);
-    private int i = 0;
     private MapEntry<K, V>[] table = new MapEntry[capacity];
 
     @Override
@@ -77,6 +76,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public Iterator<K> iterator() {
         return new Iterator<>() {
             private final int expectedModCount = modCount;
+            private int i = 0;
 
             @Override
             public boolean hasNext() {
