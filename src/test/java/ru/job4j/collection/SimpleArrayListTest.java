@@ -1,129 +1,142 @@
-//package ru.job4j.collection;
-//
-//import static org.junit.Assert.*;
-//
-//import org.junit.Assert;
-//import org.junit.Before;
-//import org.junit.Test;
-//import ru.job4j.list.List;
-//
-//import java.util.ConcurrentModificationException;
-//import java.util.Iterator;
-//import java.util.NoSuchElementException;
-//import java.util.stream.IntStream;
-//
-//public class SimpleArrayListTest {
-//    List<Integer> list;
-//
-//    @Before
-//    public void initData() {
-//        list = new SimpleArrayList<>(3);
-//        list.add(1);
-//        list.add(2);
-//        list.add(3);
-//    }
-//
-//    @Test
-//    public void whenAddThenSizeIncrease() {
-//        Assert.assertEquals(3, list.size());
-//    }
-//
-//    @Test
-//    public void whenAddAndGetByCorrectIndex() {
-//        Assert.assertEquals(Integer.valueOf(1), list.get(0));
-//    }
-//
-//    @Test(expected = IndexOutOfBoundsException.class)
-//    public void whenAddAndGetByIncorrectIndexThenGetException() {
-//        list.get(5);
-//    }
-//
-//    @Test
-//    public void whenRemoveThenGetValueAndSizeDecrease() {
-//        Assert.assertEquals(3, list.size());
-//        Assert.assertEquals(Integer.valueOf(2), list.remove(1));
-//        Assert.assertEquals(2, list.size());
-//    }
-//
-//    @Test(expected = IndexOutOfBoundsException.class)
-//    public void whenRemoveByIncorrectIndexThenGetException() {
-//        list.remove(5);
-//    }
-//
-//    @Test
-//    public void whenRemoveThenMustNotBeEmpty() {
-//        list.remove(1);
-//        Assert.assertEquals(Integer.valueOf(1), list.get(0));
-//        Assert.assertEquals(Integer.valueOf(3), list.get(1));
-//    }
-//
-//    @Test
-//    public void whenAddNullThenMustBeSameBehavior() {
-//        list = new SimpleArrayList<>(3);
-//        list.add(null);
-//        list.add(null);
-//        Assert.assertEquals(2, list.size());
-//        Assert.assertNull(list.get(0));
-//        Assert.assertNull(list.get(1));
-//    }
-//
-//    @Test
-//    public void whenSetThenGetOldValueAndSizeNotChanged() {
-//        Assert.assertEquals(Integer.valueOf(2), list.set(1, 22));
-//        Assert.assertEquals(3, list.size());
-//    }
-//
-//    @Test(expected = IndexOutOfBoundsException.class)
-//    public void whenSetByIncorrectIndexThenGetException() {
-//        list.set(5, 22);
-//    }
-//
-//    @Test
-//    public void whenGetIteratorFromEmptyListThenHasNextReturnFalse() {
-//        list = new SimpleArrayList<>(5);
-//        Assert.assertFalse(list.iterator().hasNext());
-//    }
-//
-//    @Test(expected = NoSuchElementException.class)
-//    public void whenGetIteratorFromEmptyListThenNextThrowException() {
-//        list = new SimpleArrayList<>(5);
-//        list.iterator().next();
-//    }
-//
-//    @Test
-//    public void whenGetIteratorTwiceThenStartAlwaysFromBeginning() {
-//        Assert.assertEquals(Integer.valueOf(1), list.iterator().next());
-//        Assert.assertEquals(Integer.valueOf(1), list.iterator().next());
-//    }
-//
-//    @Test
-//    public void whenCheckIterator() {
-//        Iterator<Integer> iterator = list.iterator();
-//        Assert.assertTrue(iterator.hasNext());
-//        Assert.assertEquals(Integer.valueOf(1), iterator.next());
-//        Assert.assertTrue(iterator.hasNext());
-//        Assert.assertEquals(Integer.valueOf(2), iterator.next());
-//        Assert.assertTrue(iterator.hasNext());
-//        Assert.assertEquals(Integer.valueOf(3), iterator.next());
-//        Assert.assertFalse(iterator.hasNext());
-//    }
-//
-//    @Test
-//    public void whenNoPlaceThenMustIncreaseCapacity() {
-//        IntStream.range(3, 10).forEach(v -> list.add(v));
-//    }
-//
-//    @Test(expected = ConcurrentModificationException.class)
-//    public void whenAddAfterGetIteratorThenMustBeException() {
-//        Iterator<Integer> iterator = list.iterator();
-//        list.add(4);
-//        iterator.next();
-//    }
-//
-//    @Test(expected = ConcurrentModificationException.class)
-//    public void whenRemoveAfterGetIteratorThenMustBeException() {
-//        Iterator<Integer> iterator = list.iterator();
-//        list.add(0);
-//        iterator.next();
-//    }
-//}
+package ru.job4j.collection;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
+
+import ru.job4j.list.List;
+
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.stream.IntStream;
+
+public class SimpleArrayListTest {
+    static List<Integer> list;
+
+    @BeforeAll
+    public static void init() {
+        list = new SimpleArrayList<>(3);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+    }
+
+    @Test
+    public void whenAddThenSizeIncrease() {
+        assertThat(3).isEqualTo(list.size());
+    }
+
+    @Test
+    public void whenAddAndGetByCorrectIndex() {
+        assertThat(Integer.valueOf(1)).isEqualTo(list.get(0));
+    }
+
+    @Test
+    public void whenAddAndGetByIncorrectIndexThenGetException() {
+        IndexOutOfBoundsException thrown = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            list.get(5);
+        });
+    }
+
+    @Test
+    public void whenRemoveThenGetValueAndSizeDecrease() {
+        assertThat(3).isEqualTo(list.size());
+        assertThat(Integer.valueOf(2)).isEqualTo(list.remove(1));
+        assertThat(2).isEqualTo(list.size());
+    }
+
+    @Test
+    public void whenRemoveByIncorrectIndexThenGetException() {
+        IndexOutOfBoundsException thrown = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            list.remove(5);
+        });
+    }
+
+    @Test
+    public void whenRemoveThenMustNotBeEmpty() {
+        list.remove(1);
+        assertThat(Integer.valueOf(1)).isEqualTo(list.get(0));
+        assertThat(Integer.valueOf(3)).isEqualTo(list.get(1));
+    }
+
+    @Test
+    public void whenAddNullThenMustBeSameBehavior() {
+        list = new SimpleArrayList<>(3);
+        list.add(null);
+        list.add(null);
+        assertThat(2).isEqualTo(list.size());
+        assertThat(list.get(0)).isNull();
+        assertThat(list.get(1)).isNull();
+    }
+
+    @Test
+    public void whenSetThenGetOldValueAndSizeNotChanged() {
+        assertThat(Integer.valueOf(2)).isEqualTo(list.set(1, 22));
+        assertThat(3).isEqualTo(list.size());
+    }
+
+    @Test
+    public void whenSetByIncorrectIndexThenGetException() {
+        IndexOutOfBoundsException thrown = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            list.set(5, 22);
+        });
+    }
+
+    @Test
+    public void whenGetIteratorFromEmptyListThenHasNextReturnFalse() {
+        list = new SimpleArrayList<>(5);
+        assertThat(list.iterator().hasNext()).isFalse();
+    }
+
+    @Test
+    public void whenGetIteratorFromEmptyListThenNextThrowException() {
+        NoSuchElementException thrown = Assertions.assertThrows(NoSuchElementException.class, () -> {
+            list = new SimpleArrayList<>(5);
+            list.iterator().next();
+        });
+    }
+
+    @Test
+    public void whenGetIteratorTwiceThenStartAlwaysFromBeginning() {
+        assertThat(Integer.valueOf(1)).isEqualTo(list.iterator().next());
+        assertThat(Integer.valueOf(1)).isEqualTo(list.iterator().next());
+    }
+
+    @Test
+    public void whenCheckIterator() {
+        Iterator<Integer> iterator = list.iterator();
+        assertThat(iterator.hasNext()).isTrue();
+        assertThat(Integer.valueOf(1)).isEqualTo(iterator.next());
+        assertThat(iterator.hasNext()).isTrue();
+        assertThat(Integer.valueOf(2)).isEqualTo(iterator.next());
+        assertThat(iterator.hasNext()).isTrue();
+        assertThat(Integer.valueOf(3)).isEqualTo(iterator.next());
+        assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void whenNoPlaceThenMustIncreaseCapacity() {
+        IntStream.range(3, 10).forEach(v -> list.add(v));
+    }
+
+    @Test
+    public void whenAddAfterGetIteratorThenMustBeException() {
+        ConcurrentModificationException thrown = Assertions.assertThrows(ConcurrentModificationException.class, () -> {
+            Iterator<Integer> iterator = list.iterator();
+            list.add(4);
+            iterator.next();
+        });
+    }
+
+    @Test
+    public void whenRemoveAfterGetIteratorThenMustBeException() {
+        ConcurrentModificationException thrown = Assertions.assertThrows(ConcurrentModificationException.class, () -> {
+            Iterator<Integer> iterator = list.iterator();
+            list.add(0);
+            iterator.next();
+        });
+    }
+}
