@@ -1,7 +1,9 @@
 package ru.job4j.iterator;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -19,7 +21,7 @@ public class EvenNumbersIteratorTest {
 
     @Test
     public void shouldReturnEvenNumbersSequentially() {
-//        NoSuchElementException thrown = Assertions.assertThrows(NoSuchElementException.class, () -> {
+        AssertionFailedError thrown = Assertions.assertThrows(AssertionFailedError.class, () -> {
             assertThat(it.hasNext()).isTrue();
             assertThat(it.next()).isEqualTo(2);
             assertThat(it.hasNext()).isTrue();
@@ -27,8 +29,8 @@ public class EvenNumbersIteratorTest {
             assertThat(it.hasNext()).isTrue();
             assertThat(it.next()).isEqualTo(6);
             assertThat(it.hasNext()).isFalse();
-//            it.next();
-//        });
+            it.next();
+        });
     }
 
     @Test
