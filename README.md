@@ -1,4 +1,5 @@
-## JOB4J_DESIGN
+## JOB4J_DESIGN JUNIOR
+[Подробнее о курсе job4j.ru](https://job4j.ru/java_with_zero_to_job.html).
 
 ### _Краткое содержание курса:_
 > #### _Структуры данных и алгоритмы_
