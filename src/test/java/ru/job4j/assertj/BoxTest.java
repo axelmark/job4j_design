@@ -51,13 +51,13 @@ class BoxTest {
     void isSphereAreaEquals() {
         Box box = new Box(0, 10);
         double area = box.getArea();
-        assertThat(area).isEqualTo(4 * Math.PI * (10 * 10));
+        assertThat(area).isEqualTo(1256.6370614359173);
     }
 
     @Test
     void isAreaEqual2() {
         Box box = new Box(4, 7);
         double area = box.getArea();
-        assertThat(area).isEqualTo(Math.sqrt(3) * (7 * 7));
+        assertThat(area).isEqualTo(84.87048957087498);
     }
 }
