@@ -20,10 +20,11 @@ class NameLoadTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Names array is empty");
     }
+
     @Test
     void checkValidateIfNotContainTheSymbol() {
         NameLoad nameLoad = new NameLoad();
-        assertThatThrownBy(()-> nameLoad.parse( "string"))
+        assertThatThrownBy(() -> nameLoad.parse("string"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("this name: %s does not contain the symbol '='", "string");
     }
@@ -31,7 +32,7 @@ class NameLoadTest {
     @Test
     void checkValidateIfNameStartsWith() {
         NameLoad nameLoad = new NameLoad();
-        assertThatThrownBy(()-> nameLoad.parse( "=string"))
+        assertThatThrownBy(() -> nameLoad.parse("=string"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("this name: %s does not contain a key", "=string");
     }
@@ -39,7 +40,7 @@ class NameLoadTest {
     @Test
     void checkValidateIfNameIndexOf() {
         NameLoad nameLoad = new NameLoad();
-        assertThatThrownBy(()-> nameLoad.parse( "string="))
+        assertThatThrownBy(() -> nameLoad.parse("string="))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("this name: %s does not contain a value", "string=");
     }
