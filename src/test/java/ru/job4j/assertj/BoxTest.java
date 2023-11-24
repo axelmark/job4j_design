@@ -3,6 +3,7 @@ package ru.job4j.assertj;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.offset;
 
 class BoxTest {
     @Test
@@ -51,14 +52,14 @@ class BoxTest {
     void isSphereAreaEquals() {
         Box box = new Box(0, 10);
         double area = box.getArea();
-        assertThat(area).isEqualTo(1256.6370614359173);
+        assertThat(area).isCloseTo(1256.63, offset(0.01D));
+
     }
 
     @Test
     void isAreaEqual2() {
         Box box = new Box(4, 7);
         double area = box.getArea();
-        assertThat(area).isEqualTo(84.87048957087498);
+        assertThat(area).isCloseTo(84.87, offset(0.01D));
     }
-
 }
