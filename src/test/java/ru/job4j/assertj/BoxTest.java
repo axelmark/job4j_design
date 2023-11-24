@@ -60,4 +60,5 @@ class BoxTest {
         double area = box.getArea();
         assertThat(area).isEqualTo(84.87048957087498);
     }
+
 }
