@@ -1,4 +1,4 @@
-## JOB4J_DESIGN JUNIOR
+# job4j (JUNIOR)
 [Подробнее о курсе job4j.ru](https://job4j.ru/java_with_zero_to_job.html).
 
 ### _Краткое содержание курса:_
