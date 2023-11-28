@@ -14,7 +14,7 @@ public class NonNullIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        if (this.index < this.data.length || data.length == 0) {
+        if (this.index < this.data.length) {
             for (int i = index; i < this.data.length; i++) {
                 if (this.data[i] != null) {
                     return true;
