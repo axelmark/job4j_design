@@ -12,12 +12,19 @@ public class SimpleTree<E> implements Tree<E> {
         this.root = new Node<>(root);
     }
 
+    /**
+     * Найти узел по значению parent и добавлять в него дочерний узел со значением child.
+     * Проверить, что значения child еще нет в дереве, а parent есть.
+     * Если child есть, то метод должен вернуть false.
+     */
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-        if (root.value.equals(parent)) {
-
-            root.children.add(new Node<E>(parent));
+        if (findBy(parent).isPresent()) {
+            if (findBy(child).isEmpty()) {
+                root.children.add(new Node<>(child));
+                rsl = false;
+            }
         }
         return rsl;
     }
@@ -37,10 +44,5 @@ public class SimpleTree<E> implements Tree<E> {
             data.addAll(el.children);
         }
         return rsl;
-    }
-
-    public static void main(String[] args) {
-        Tree<Integer> tree = new SimpleTree<>(1);
-        tree.add(1, 2);
     }
 }
