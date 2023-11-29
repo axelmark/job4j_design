@@ -12,11 +12,6 @@ public class SimpleTree<E> implements Tree<E> {
         this.root = new Node<>(root);
     }
 
-    /**
-     * Найти узел по значению parent и добавлять в него дочерний узел со значением child.
-     * Проверить, что значения child еще нет в дереве, а parent есть.
-     * Если child есть, то метод должен вернуть false.
-     */
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
