@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,16 +23,19 @@ public class LogFilter {
 
     public void saveTo(String out) {
         var data = filter();
-        try (PrintWriter printWriter = new PrintWriter(new BufferedOutputStream(new FileOutputStream(out)))) {
-            printWriter.println(data);
+        try (Writer printWriter = new PrintWriter(new BufferedOutputStream(new FileOutputStream(out)))) {
+            for (String dt : data) {
+                printWriter.write(dt);
+                printWriter.write(System.lineSeparator());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-      /*  LogFilter logFilter = new LogFilter("data/log.txt");
-        logFilter.filter().forEach(System.out::println);*/
+//        LogFilter logFilter = new LogFilter("data/log.txt");
+//        logFilter.filter().forEach(System.out::println);
         new LogFilter("data/log.txt").saveTo("data/404.txt");
     }
 }
