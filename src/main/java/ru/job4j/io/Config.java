@@ -18,6 +18,8 @@ public class Config {
                 if (string.contains("=")) {
                     String[] st = string.split("=");
                     values.put(st[0], st[1]);
+                } else {
+                    throw new IllegalArgumentException();
                 }
             }
         } catch (IOException e) {
