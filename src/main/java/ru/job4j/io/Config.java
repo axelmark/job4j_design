@@ -14,9 +14,16 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+
             for (String string : read.lines().toList()) {
+                if (string.isEmpty() || string.startsWith("#")) {
+                    continue;
+                }
                 if (string.contains("=")) {
-                    String[] st = string.split("=");
+                    String[] st = string.split("=", 2);
+                    if (st[0].isEmpty() || st[1].isEmpty()) {
+                        throw new IllegalArgumentException();
+                    }
                     values.put(st[0], st[1]);
                 }
             }
@@ -41,6 +48,6 @@ public class Config {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Config("data/app.properties"));
+        System.out.println(new Config("data/pair_with_comments.properties"));
     }
 }
