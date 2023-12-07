@@ -29,4 +29,5 @@ public class Analysis {
         Analysis analysis = new Analysis();
         analysis.unavailable("data/server.log", "data/target.csv");
     }
+
 }
