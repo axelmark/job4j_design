@@ -30,12 +30,16 @@ public class Config {
     }
 
     private void validate(String string) {
-        String[] st = string.split("=", 2);
-        if (st[0].isBlank()) {
-            throw new IllegalArgumentException("string does not contain a key");
-        }
-        if (st[1].isBlank()) {
-            throw new IllegalArgumentException("string does not contain a value");
+        if (string.contains("=")) {
+            String[] st = string.split("=", 2);
+            if (st[0].isBlank()) {
+                throw new IllegalArgumentException("string does not contain a key");
+            }
+            if (st[1].isBlank()) {
+                throw new IllegalArgumentException("string does not contain a value");
+            }
+        } else {
+            throw new IllegalArgumentException("string does not contain symbol '='");
         }
     }
 
