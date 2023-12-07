@@ -6,17 +6,17 @@ public class Analysis {
     public void unavailable(String source, String target) {
         boolean server = false;
         try (BufferedReader read = new BufferedReader(new FileReader(source));
-             FileOutputStream out = new FileOutputStream(target)) {
+             PrintWriter out = new PrintWriter(target)) {
             for (String s : read.lines().toList()) {
                 String[] st = s.split(" ");
                 if (Integer.parseInt(st[0]) == 400 || Integer.parseInt(st[0]) == 500) {
                     if (!server) {
-                        out.write(st[1].concat("-").getBytes());
+                        out.write(st[1] + ";");
                         server = true;
                     }
                 } else if (server) {
-                    out.write(st[1].concat(";").getBytes());
-                    out.write(System.lineSeparator().getBytes());
+                    out.write(st[1] + ";");
+                    out.write(System.lineSeparator());
                     server = false;
                 }
             }
