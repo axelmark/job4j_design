@@ -18,6 +18,16 @@ class ConfigTest {
     void whenIllegalArgumentException() {
         String path = "data/whenIllegalArgumentException.properties";
         Config config = new Config(path);
-        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class)
+                .message().isEqualTo("string does not contain a key");
+    }
+
+    @Test
+    void whenIllegalArgumentException2() {
+        String path = "data/whenIllegalArgumentException2.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class)
+                .message().isEqualTo("string does not contain a value");
+        ;
     }
 }

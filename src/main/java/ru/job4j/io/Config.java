@@ -14,21 +14,28 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-
             for (String string : read.lines().toList()) {
-                if (string.isEmpty() || string.startsWith("#")) {
+                if (string.isBlank() || string.startsWith("#")) {
                     continue;
                 }
                 if (string.contains("=")) {
+                    validate(string);
                     String[] st = string.split("=", 2);
-                    if (st[0].isEmpty() || st[1].isEmpty()) {
-                        throw new IllegalArgumentException();
-                    }
                     values.put(st[0], st[1]);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void validate(String string) {
+        String[] st = string.split("=", 2);
+        if (st[0].isBlank()) {
+            throw new IllegalArgumentException("string does not contain a key");
+        }
+        if (st[1].isBlank()) {
+            throw new IllegalArgumentException("string does not contain a value");
         }
     }
 
