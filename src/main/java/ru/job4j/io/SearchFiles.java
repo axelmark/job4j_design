@@ -9,20 +9,20 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SearchFiles extends SimpleFileVisitor<Path> {
-    private final Predicate<Path> predicate;
-    List<Path> list = new ArrayList<>();
+    private final Predicate<Path> condition;
+    private final List<Path> list = new ArrayList<>();
 
     public SearchFiles(Predicate<Path> condition) {
-        this.predicate = condition;
+        this.condition = condition;
     }
 
     public List<Path> getPaths() {
-        return this.list;
+        return list;
     }
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-        if (this.predicate.test(file)) {
+        if (condition.test(file)) {
             list.add(file);
         }
         return FileVisitResult.CONTINUE;
