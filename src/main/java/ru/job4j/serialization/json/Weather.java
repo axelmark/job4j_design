@@ -26,7 +26,6 @@ public class Weather {
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(weather);
         System.out.println(gson.toJson(weather));
-
         Weather weatherMod = gson.fromJson(json, Weather.class);
         System.out.println(weatherMod);
     }
