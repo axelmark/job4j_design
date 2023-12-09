@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<weather desc="Sunny" wind="30" rain="false">
+    <seasons>
+        <status>Winter</status>
+        <status>Spring</status>
+        <status>Summer</status>
+        <status>Autumn</status>
+    </seasons>
+</weather>
