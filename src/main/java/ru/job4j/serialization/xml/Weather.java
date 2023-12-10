@@ -68,4 +68,5 @@ public class Weather {
             System.out.println(result);
         }
     }
+
 }
