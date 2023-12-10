@@ -1,17 +1,17 @@
 package ru.job4j.serialization.xml;
 
-import javax.xml.bind.JAXBContext;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 @XmlRootElement()
@@ -23,6 +23,18 @@ public class Weather {
     int wind = 10;
     boolean rain = false;
     String[] seasons = {"Winter", "Spring", "Summer", "Autumn"};
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public int getWind() {
+        return wind;
+    }
+
+    public boolean isRain() {
+        return rain;
+    }
 
     public Weather() {
     }
@@ -51,7 +63,7 @@ public class Weather {
         Weather weatherMod = gson.fromJson(json, Weather.class);
         System.out.println(weatherMod);*/
 
-        Weather weather = new Weather("Sunny", 3, false);
+       /* Weather weather = new Weather("Sunny", 3, false);
         JAXBContext context = JAXBContext.newInstance(Weather.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -66,7 +78,23 @@ public class Weather {
         try (StringReader reader = new StringReader(xml)) {
             Weather result = (Weather) unmarshaller.unmarshal(reader);
             System.out.println(result);
-        }
-    }
+        }*/
 
+        JSONObject jsonSeasons = new JSONObject("{\"seasons\":[\"Winter\", \"Spring\", \"Summer\", \"Autumn\"]}");
+
+        List<String> list = new ArrayList<>();
+        list.add("cloudy");
+        list.add("clearly");
+        JSONArray jsonArray = new JSONArray(list);
+
+        Weather weather = new Weather("Sunny", 3, false);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("desc", weather.desc);
+        jsonObject.put("rain", weather.rain);
+        jsonObject.put("seasons", jsonSeasons);
+        jsonObject.put("statuses", jsonArray);
+
+        System.out.println(jsonObject.toString());
+        System.out.println(new JSONObject(weather).toString());
+    }
 }
