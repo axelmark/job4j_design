@@ -20,8 +20,6 @@ public class Person {
 
     private String[] statuses;
 
-    public Person() { }
-
     public boolean getSex() {
         return sex;
     }
@@ -34,12 +32,19 @@ public class Person {
         return contact;
     }
 
+    public String[] getStatuses() {
+        return statuses;
+    }
+
+    public Person() { }
+
     public Person(boolean sex, int age, Contact contact, String... statuses) {
         this.sex = sex;
         this.age = age;
         this.contact = contact;
         this.statuses = statuses;
     }
+
 
     @Override
     public String toString() {

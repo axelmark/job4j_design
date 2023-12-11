@@ -9,8 +9,11 @@ public class Contact {
     @XmlAttribute
     private String phone;
 
-    public Contact() {
+    public String getPhone() {
+        return phone;
+    }
 
+    public Contact() {
     }
 
     public Contact(String phone) {
