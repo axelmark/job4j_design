@@ -26,18 +26,6 @@ public class Info {
         this.deleted = deleted;
     }
 
-    public int getAdded() {
-        return added;
-    }
-
-    public int getChanged() {
-        return changed;
-    }
-
-    public int getDeleted() {
-        return deleted;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
