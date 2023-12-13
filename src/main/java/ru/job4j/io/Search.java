@@ -21,12 +21,12 @@ public class Search {
         return searcher.getPaths();
     }
 
-    public static void validate(String startDir, String fileExt) {
-        if (startDir.isEmpty()) {
-            throw new IllegalArgumentException("Root folder cannot be null.");
+    public static void validate(String... args) {
+        if (!Files.exists(Path.of(args[0]))) {
+            throw new IllegalArgumentException("Directory doesn't exist");
         }
-        if (fileExt.isEmpty()) {
-            throw new IllegalArgumentException("file extension cannot be null");
+        if (!args[1].matches(".+[a-z]")) {
+            throw new IllegalArgumentException("The file extension must match the template '.a-z' ");
         }
     }
 }
