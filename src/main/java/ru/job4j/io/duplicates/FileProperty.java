@@ -3,14 +3,14 @@ package ru.job4j.io.duplicates;
 import java.util.Objects;
 
 public class FileProperty {
-
     private long size;
+    private final String name;
+    private final String path;
 
-    private String name;
-
-    public FileProperty(long size, String name) {
+    public FileProperty(long size, String name, String path) {
         this.size = size;
         this.name = name;
+        this.path = path;
     }
 
     public long getSize() {
@@ -25,8 +25,8 @@ public class FileProperty {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPath() {
+        return path;
     }
 
     @Override
