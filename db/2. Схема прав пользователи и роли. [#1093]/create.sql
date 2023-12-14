@@ -1,4 +1,4 @@
-crete table users (
+create table users (
     id serial primary key,
     user_name varchar(255)
 );
@@ -9,7 +9,7 @@ create table roles (
     user_id int references users(id)
 );
 
-crete table rules (
+create table rules (
     id serial primary key,
     rule_name varchar(255)
 );
