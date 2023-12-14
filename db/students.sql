@@ -20,7 +20,7 @@ create table student(
 create table student_card(
     id serial primary key,
     s_name varchar(255),
-    student_card_id int references student(id)
+    student_card_id int references student(id) unique
 );
 
 --many-to-many
