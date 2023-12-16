@@ -3,30 +3,20 @@ package ru.job4j.io.duplicates;
 import java.util.Objects;
 
 public class FileProperty {
-    private long size;
+    private final long size;
     private final String name;
-    private final String path;
 
-    public FileProperty(long size, String name, String path) {
+    public FileProperty(long size, String name) {
         this.size = size;
         this.name = name;
-        this.path = path;
     }
 
     public long getSize() {
         return size;
     }
 
-    public void setSize(long size) {
-        this.size = size;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public String getPath() {
-        return path;
     }
 
     @Override

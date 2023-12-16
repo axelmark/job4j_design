@@ -8,29 +8,27 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
-    public final List<FileProperty> basic = new ArrayList<>();
-    public final Set<FileProperty> elements = new HashSet<>();
-    public final List<FileProperty> duplicates = new ArrayList<>();
+    private final HashMap<FileProperty, List<String>> elements = new HashMap<>();
 
-    List<FileProperty> sortDuplicates(List<FileProperty> list) {
-        for (FileProperty f : list) {
-            if (!elements.add(new FileProperty(f.getSize(), f.getName(), f.getPath()))) {
-                duplicates.add(f);
-            }
+    public HashMap<FileProperty, List<String>> getElements() {
+        return elements;
+    }
+
+    private void updateValue(FileProperty f, String s) {
+        List<String> tempList = new ArrayList<>();
+        if (elements.containsKey(f)) {
+            tempList = elements.get(f);
         }
-        for (FileProperty f : elements) {
-            if (duplicates.contains(f)) {
-                duplicates.add(f);
-            }
-        }
-        duplicates.sort(Comparator.comparing(FileProperty::getName));
-        return duplicates;
+        tempList.add(s);
+        elements.put(f, tempList);
     }
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         if (attrs.isRegularFile()) {
-            basic.add(new FileProperty(file.toFile().length(), file.toFile().getName(), file.toFile().getAbsolutePath()));
+            FileProperty entries = new FileProperty(file.toFile().length(), file.toFile().getName());
+            String path = file.toFile().getAbsolutePath();
+            updateValue(entries, path);
         }
         return super.visitFile(file, attrs);
     }
