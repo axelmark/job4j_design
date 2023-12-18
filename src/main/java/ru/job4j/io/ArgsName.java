@@ -10,7 +10,7 @@ public class ArgsName {
 
     public String get(String key) {
         if (!values.containsKey(key)) {
-            throw new IllegalArgumentException(format("\"This key: '%s' is missing\"", key));
+            throw new IllegalArgumentException(format("This key: '%s' is missing", key));
         }
         return values.get(key);
     }
@@ -20,12 +20,6 @@ public class ArgsName {
             String[] temp = s.split("=", 2);
             String key = temp[0].replaceAll("-", "").trim();
             String value = temp[1];
-            if (key.isBlank()) {
-                throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a key", s));
-            }
-            if (value.isBlank()) {
-                throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a value", s));
-            }
             this.values.putIfAbsent(key, value);
         }
     }
@@ -35,14 +29,18 @@ public class ArgsName {
             throw new IllegalArgumentException("Arguments not passed to program");
         }
         for (String s : args) {
-               /* if (!Pattern.matches("^-[a-zA-Z0-9]*=[a-zA-Z0-9]*-?.?[a-zA-Z0-9]*", s)) {
-                    throw new IllegalArgumentException("Arguments not passed to program");
-                }*/
             if (!s.contains("=")) {
                 throw new IllegalArgumentException(format("Error: This argument '%s' does not contain an equal sign", s));
             }
             if (!s.startsWith("-")) {
                 throw new IllegalArgumentException(format("Error: This argument '%s' does not start with a '-' character", s));
+            }
+            String[] temp = s.split("=", 2);
+            if (temp[0].replaceAll("-", "").trim().isBlank()) {
+                throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a key", s));
+            }
+            if (temp[1].isBlank()) {
+                throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a value", s));
             }
         }
     }
