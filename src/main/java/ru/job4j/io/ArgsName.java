@@ -16,35 +16,39 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
-        if (args.length != 0) {
-            for (String s : args) {
+        for (String s : args) {
+            String[] temp = s.split("=", 2);
+            String key = temp[0].replaceAll("-", "").trim();
+            String value = temp[1];
+            if (key.isBlank()) {
+                throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a key", s));
+            }
+            if (value.isBlank()) {
+                throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a value", s));
+            }
+            this.values.putIfAbsent(key, value);
+        }
+    }
+
+    private static void validate(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Arguments not passed to program");
+        }
+        for (String s : args) {
                /* if (!Pattern.matches("^-[a-zA-Z0-9]*=[a-zA-Z0-9]*-?.?[a-zA-Z0-9]*", s)) {
                     throw new IllegalArgumentException("Arguments not passed to program");
                 }*/
-                if (!s.contains("=")) {
-                    throw new IllegalArgumentException(format("Error: This argument '%s' does not contain an equal sign", s));
-                }
-                if (!s.startsWith("-")) {
-                    throw new IllegalArgumentException(format("Error: This argument '%s' does not start with a '-' character", s));
-                }
-                String[] temp = s.split("=", 2);
-                String key = temp[0].replaceAll("-", "").trim();
-                String value = temp[1];
-                if (key.isBlank()) {
-                    throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a key", s));
-                }
-                if (value.isBlank()) {
-                    throw new IllegalArgumentException(format("Error: This argument '%s' does not contain a value", s));
-                }
-                this.values.putIfAbsent(key, value);
+            if (!s.contains("=")) {
+                throw new IllegalArgumentException(format("Error: This argument '%s' does not contain an equal sign", s));
             }
-
-        } else {
-            throw new IllegalArgumentException("Arguments not passed to program");
+            if (!s.startsWith("-")) {
+                throw new IllegalArgumentException(format("Error: This argument '%s' does not start with a '-' character", s));
+            }
         }
     }
 
     public static ArgsName of(String[] args) {
+        validate(args);
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
