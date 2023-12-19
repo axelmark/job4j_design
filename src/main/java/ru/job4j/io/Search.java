@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        String[] arguments = new String[]{".", ".java"};
+        String[] arguments = new String[]{".", ".zip"};
         validate(arguments);
         Path start = Path.of(arguments[0]);
         search(start, p -> p.toFile().getName().endsWith(arguments[1])).forEach(System.out::println);
@@ -20,7 +20,7 @@ public class Search {
         return searcher.getPaths();
     }
 
-    public static void validate(String... args) {
+    private static void validate(String... args) {
         if (!Files.exists(Path.of(args[0])) && Files.isDirectory(Path.of(args[0]))) {
             throw new IllegalArgumentException("Directory doesn't exist");
         }
