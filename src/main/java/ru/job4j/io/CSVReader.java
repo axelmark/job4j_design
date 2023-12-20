@@ -18,9 +18,18 @@ public class CSVReader {
     }
 
     public static void main(String[] args) throws Exception {
-        /* здесь добавьте валидацию принятых параметров*/
-
         String[] arguments = new String[]{"-path=data/csvreader/file.csv", "-delimiter=;", "-out=stdout", "-filter=name,age"};
+        for (String s : arguments) {
+            if (!s.isBlank() && s.contains("=")) {
+                String[] entries = s.split("=");
+                for (String st : entries) {
+                    if (st.isBlank()) {
+                        throw new IllegalArgumentException();
+                    }
+                }
+            }
+        }
+
         ArgsName argsName = ArgsName.of(arguments);
         handle(argsName);
     }
