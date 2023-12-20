@@ -20,6 +20,16 @@ create table roles_rules (
     rules_id int references rules(id)
 );
 
+create table categories (
+    id serial primary key,
+    cat_name varchar(255)
+);
+
+create table states (
+    id serial primary key,
+    states varchar(255)
+);
+
 create table items (
     id serial primary key,
     items_name varchar(255),
@@ -39,14 +49,4 @@ create table attachs (
     id serial primary key,
     files varchar(255),
     items_id int references items(id)
-);
-
-create table categories (
-    id serial primary key,
-    cat_name varchar(255)
-);
-
-create table states (
-    id serial primary key,
-    states varchar(255)
 );
