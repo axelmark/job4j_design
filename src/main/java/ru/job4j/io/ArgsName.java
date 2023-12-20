@@ -17,7 +17,7 @@ public class ArgsName {
 
     private void parse(String[] args) {
         for (String s : args) {
-            String[] temp = s.split("=", 2);
+            String[] temp = s.split("=");
             String key = temp[0].replaceAll("-", "").trim();
             String value = temp[1];
             this.values.putIfAbsent(key, value);
