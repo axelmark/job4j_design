@@ -8,6 +8,7 @@ public class CSVReader {
         try (Scanner scanner = new Scanner(new File(args.get("path")))) {
             StringBuilder res = new StringBuilder();
             List<Integer> indexes = new ArrayList<>();
+
             String[] filter = args.get("filter").split(",");
             String[] headers = scanner.nextLine().split(args.get("delimiter"));
 
@@ -28,6 +29,7 @@ public class CSVReader {
                             ? columns[indexes.get(i)] + args.get("delimiter") : columns[indexes.get(i)] + "\n");
                 }
             }
+
             if (!args.get("out").equals("stdout")) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(args.get("out")))) {
                     out.write(res.toString().getBytes());
