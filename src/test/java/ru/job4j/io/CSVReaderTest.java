@@ -22,7 +22,6 @@ class CSVReaderTest {
         );
         File file = folder.resolve("source.csv").toFile();
         File target = folder.resolve("target.csv").toFile();
-        System.out.println(file);
         ArgsName argsName = ArgsName.of(new String[]{
                 "-path=" + file.getAbsolutePath(), "-delimiter=;",
                 "-out=" + target.getAbsolutePath(), "-filter=name,education"});
