@@ -17,7 +17,7 @@ public class ArgsName {
 
     private void parse(String[] args) {
         for (String s : args) {
-            String[] temp = s.split("=");
+            String[] temp = s.split("=", 2);
             String key = temp[0].replaceAll("-", "").trim();
             String value = temp[1];
             this.values.putIfAbsent(key, value);
@@ -53,10 +53,10 @@ public class ArgsName {
     }
 
     public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
+        ArgsName jvm = ArgsName.of(new String[]{"-Xmx=512", "-encoding=UTF-8"});
         System.out.println(jvm.get("Xmx"));
 
-        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
+        ArgsName zip = ArgsName.of(new String[]{"-out=project.zip", "-encoding=UTF-8"});
         System.out.println(zip.get("out"));
     }
 }
