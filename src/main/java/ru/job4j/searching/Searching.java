@@ -9,17 +9,19 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class Searching {
     public void start(ArgsName argsName) throws IOException {
 
-        String pattern = "";
-        if (argsName.get("t").equals("name")) {
-            pattern = "(.*)" + argsName.get("n") + "(.*)";
-        }
-        String finalPattern = pattern;
-        List<Path> res = Search.search(Path.of(argsName.get("d")), p -> p.toFile().getName().matches(finalPattern));
+        Predicate<Path> predicate = switch (argsName.get("t")) {
+            case ("name") -> p -> p.toFile().getName().startsWith(argsName.get("n"));
+            case ("mask") -> p -> p.toFile().getName().matches("\\.\\*" + argsName.get("n"));
+            case ("regex") -> p -> p.toFile().getName().matches(".*" + argsName.get("n") + ".*");
+            default -> p -> p.toFile().getName().matches(".*");
+        };
 
+        List<Path> res = Search.search(Path.of(argsName.get("d")), predicate);
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(String.valueOf(argsName.get("o"))))) {
             for (Path s : res) {
                 out.write(s.toString().getBytes());
@@ -43,8 +45,9 @@ public class Searching {
         String o = scanner.next();
         String set = String.format("-d=%s -n=%s -t=%s -o=%s", d, n, t, o);
         ArgsName argsName = ArgsName.of(set.split(" "));
-
-//        ArgsName argsName = ArgsName.of(new String[]{"-d=.", "-n=.txt", "-t=name", "-o=data/searching/log.txt"});
+/*
+        ArgsName argsName = ArgsName.of(new String[]{"-d=.", "-n=ResultFile", "-t=name", "-o=data/searching/log.txt"});
+*/
         Searching search = new Searching();
         search.start(argsName);
     }
