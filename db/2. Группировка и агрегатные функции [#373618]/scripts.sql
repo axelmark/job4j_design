@@ -31,7 +31,7 @@ insert into devices_people(device_id, people_id) values (3, 1);
 insert into devices_people(device_id, people_id) values (4, 2);
 insert into devices_people(device_id, people_id) values (5, 2);
 
-select name, round(avg(price)) from devices group by name;
+select avg(price) from devices;
 
 select p.name, avg(d.price)
 from devices_people as dp
