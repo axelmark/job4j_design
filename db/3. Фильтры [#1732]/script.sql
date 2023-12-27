@@ -40,10 +40,10 @@ from product as p
 join type as t
 on t.id = p.type_id
 group by p.name, t.name
-having t.name='Сыр'
+having t.name='Сыр';
 
 select name from product
-where name like '%Мороженое%'
+where name like '%Мороженое%';
 
 select name, expired_date from product where expired_date - current_date<=0;
 
@@ -58,12 +58,12 @@ from product as p
 join type as t
 on t.id = p.type_id
 group by p.name, t.name
-having t.name='Молоко' or t.name='Сыр'
+having t.name='Молоко' or t.name='Сыр';
 
 select type.name as имя_типа, count(product.name) as количество  from type join product
 on product.type_id = type.id
 group by type.name
-having count(product.name)<3
+having count(product.name)<3;
 
 select product.name, type.name as типы  from product join type
 on product.type_id = type.id;
