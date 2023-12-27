@@ -64,7 +64,14 @@ insert into teens(name, gender) values ('Марина', 'жен.');
 insert into teens(name, gender) values ('Владимир', 'муж.');
 insert into teens(name, gender) values ('Лена', 'жен.');
 
-select * from teens;
+
+select n1.num as a, n2.num as b, (n1.num * n2.num) as "a*b=" from numbers n1
+         cross join numbers n2;
+
+select m.name as mail, f.name as femail, (f.name, m.name) as match
+from teens as m
+cross join teens as f
+where m.gender<>f.gender;
 
 
 
