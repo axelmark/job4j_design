@@ -18,20 +18,17 @@ public class ImportDB {
         this.dump = dump;
     }
 
-    public List<User> load() throws IOException {
+    public List<User> load() throws IOException, IllegalAccessException {
         List<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(dump))) {
-            reader.lines().forEach(p -> {
-                var items = p.split(";");
+            String read;
+            while ((read = reader.readLine()) != null) {
+                String[] items = read.split(";");
                 if (items.length != 2 || items[1].startsWith(";")) {
-                    try {
-                        throw new IllegalAccessException("Argument not passed");
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
+                    throw new IllegalAccessException("Argument not passed");
                 }
                 users.add(new User(items[0], items[1]));
-            });
+            }
         }
         return users;
     }
