@@ -62,4 +62,8 @@ MOVE BACKWARD 6 FROM cursor_products;
 
 MOVE BACKWARD FROM cursor_products;
 
+CLOSE cursor_products;
+
+COMMIT;
+
 
