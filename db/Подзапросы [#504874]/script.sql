@@ -26,4 +26,4 @@ insert into orders(amount, customer_id) values  (1, 2);
 insert into orders(amount, customer_id) values  (0, 3);
 
 select first_name from customers
-where id in (select customer_id from orders where amount=0);
+where id = (select customer_id from orders where amount=0);
