@@ -3,11 +3,8 @@ package ru.job4j.gc.leak;
 import java.util.List;
 
 public class Post {
-
     private Integer id;
-
     private String text;
-
     private List<Comment> comments;
 
     public Post(Integer id, String text, List<Comment> comments) {
@@ -27,12 +24,5 @@ public class Post {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    /*остальные getter/setter*/
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 }
