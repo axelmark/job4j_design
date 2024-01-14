@@ -15,6 +15,7 @@ public class DirFileCache extends AbstractCache<String, String> {
 
     @Override
     protected String load(String key) {
+        System.out.println("Читаю файл...\n");
         String content = null;
         try {
             Path path = Paths.get(cachingDir + key);
