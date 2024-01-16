@@ -5,17 +5,17 @@ import ru.job4j.cache.DirFileCache;
 import java.util.Scanner;
 
 public class Emulator {
-    public static final int CACHE_DIR = 1;
-    public static final int LOAD_FILE_CONTENT_TO_CACHE = 2;
-    public static final int GET_FILE_CONTENT_FROM_CACHE = 3;
-    private String dir = "src/main/java/ru/job4j/cache/files/";
-    private String key = "Names.txt";
-    public static final String MENU = """
+    private static final int CACHE_DIR = 1;
+    private static final int LOAD_FILE_CONTENT_TO_CACHE = 2;
+    private static final int GET_FILE_CONTENT_FROM_CACHE = 3;
+    private static final String MENU = """
                 Введите 1, указать кэшируемую директорию.
                 Введите 2, загрузить содержимое файла в кэш.
                 Введите 3, получить содержимое файла из кэша.
                 Введите любое другое число для выхода.
             """;
+    private String dir = "src/main/java/ru/job4j/cache/files/";
+    private String key = "Names.txt";
 
     public static void main(String[] args) {
         Emulator emulator = new Emulator();
@@ -31,7 +31,7 @@ public class Emulator {
             } else if (LOAD_FILE_CONTENT_TO_CACHE == userChoice) {
                 System.out.println("укажите файл для кеширования");
                 emulator.key = scanner.nextLine();
-                System.out.println("Кеш будет обновлен по ключу: " + emulator.key);
+                System.out.println("Кеш будет загружен по ключу: " + emulator.key);
                 System.out.print(System.lineSeparator());
             } else if (GET_FILE_CONTENT_FROM_CACHE == userChoice) {
                 DirFileCache dirFileCache = new DirFileCache(emulator.dir);
