@@ -10,11 +10,11 @@ public class Fool {
 
         var input = new Scanner(System.in);
         while (startAt < 100) {
-            if (startAt % 3 == 0 && startAt % 5 == 0) {
+            if (isFizzBuzz()) {
                 System.out.println("FizzBuzz");
-            } else if (startAt % 3 == 0) {
+            } else if (isFizz()) {
                 System.out.println("Fizz");
-            } else if (startAt % 5 == 0) {
+            } else if (isBuzz()) {
                 System.out.println("Buzz");
             } else {
                 System.out.println(startAt);
@@ -23,23 +23,19 @@ public class Fool {
             var answer = input.nextLine();
             if (isFizzBuzz()) {
                 if (!"FizzBuzz".equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
+                    printMsgAndStartAt0();
                 }
-            } else if (startAt % 3 == 0) {
+            } else if (isFizz()) {
                 if (!"Fizz".equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
+                    printMsgAndStartAt0();
                 }
-            } else if (startAt % 5 == 0) {
+            } else if (isBuzz()) {
                 if (!"Buzz".equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
+                    printMsgAndStartAt0();
                 }
             } else {
                 if (!String.valueOf(startAt).equals(answer)) {
-                    System.out.println("Ошибка. Начинай снова.");
-                    startAt = 0;
+                    printMsgAndStartAt0();
                 }
             }
             startAt++;
@@ -47,9 +43,19 @@ public class Fool {
     }
 
     public static boolean isFizzBuzz() {
-        if (startAt % 3 == 0 && startAt % 5 == 0) {
-            return true;
-        }
-        return false;
+        return startAt % 3 == 0 && startAt % 5 == 0;
+    }
+
+    public static boolean isFizz() {
+        return startAt % 3 == 0;
+    }
+
+    public static boolean isBuzz() {
+        return startAt % 5 == 0;
+    }
+
+    public static void printMsgAndStartAt0() {
+        System.out.println("Ошибка. Начинай снова.");
+        startAt = 0;
     }
 }
